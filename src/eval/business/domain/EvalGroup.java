@@ -1,5 +1,5 @@
 package eval.business.domain;
-
+ // vamo inter
 public class EvalGroup {
 	
 	private String name;
