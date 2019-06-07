@@ -6,7 +6,8 @@ public class Reviewer {
 	private String state;
 	private int id;
 	private Map<Reviewer, List<Evaluation>> evaluations;
-	private List<ProductCategory> productCategory;
+	private List<ProductCategory> categories;
+	private List<EvalGroup> groups;
 	
 	public void addEvaluation(Evaluation evaluation) {
 		

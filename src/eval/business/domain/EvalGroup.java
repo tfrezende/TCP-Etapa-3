@@ -4,6 +4,8 @@ public class EvalGroup {
 	
 	private String name;
 	private Map<Product, List<Evaluation>> evaluations;
+	private List<Reviewer> members;
+	private List<Product> products;
 	
 	private void addEvaluation(Product product, Reviewer reviewer) {
 		
