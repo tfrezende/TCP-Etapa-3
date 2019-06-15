@@ -27,6 +27,8 @@ public class Product {
 	public boolean isEvaluationDone() {
 		
 	}
-	
+
+}
+
 	
 	

@@ -19,10 +19,10 @@ public class Evaluation {
 	
 	public boolean isDone() {
 		if (score != null) {			
-			return True;
+			return true;
 		}
 		else {
-			return False;
+			return false;
 		}
 	}
 }
