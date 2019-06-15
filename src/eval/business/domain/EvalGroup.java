@@ -1,5 +1,9 @@
 package eval.business.domain;
 
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+
 public class EvalGroup {
 	
 	private String name;
@@ -28,11 +32,16 @@ public class EvalGroup {
 	}
 	
 	public List<Product> getAcceptableProducts(){
+		List<Product> acceptableProducts;
+		// a fazer
+		return acceptableProducts;
 		
 	}
 	
 	public List<Product> getNotAcceptableProducts(){
-		
+		List<Product> notAcceptableProducts;		
+		// a fazer
+		return notAcceptableProducts;
 	}	
 	
 	private void addEvaluation(Product product, Reviewer reviewer) {
@@ -49,5 +58,28 @@ public class EvalGroup {
 	
 	public boolean isEvaluationDone() {
 		
+	}
+
+
+	public String getName() {
+		return name;
+	}
+
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+
+	public Map<Product, List<Evaluation>> getEvaluations() {
+		return evaluations;
+	}
+
+
+
+	public void setEvaluations(Map<Product, List<Evaluation>> evaluations) {
+		this.evaluations = evaluations;
 	}
 }
