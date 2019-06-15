@@ -12,11 +12,13 @@ public class EvalGroup {
 	}
 	
 	private List<Reviewer> getOrderedCandidates(Product product){
-		
+		List<Reviewer> orderedCandidates = this.members;
+		// a fazer
 	}
 	
 	private List<Product> getOrderedProducts(){
-		
+		List<Product> orderedProducts = this.products;
+		// a fazer
 	}
 	
 	public List<Product> getAcceptableProducts(){
