@@ -11,14 +11,6 @@ public class EvalGroup {
 	private List<Reviewer> members;
 	private List<Product> products;
 	
-	class SortProductsById implements Comparator<Product>{
-		
-	}
-	
-	class SortCandidatesByProducts implements Comparator<Reviewer>{
-		
-	}	
-	
 	private List<Reviewer> getOrderedCandidates(Product product){
 		List<Reviewer> orderedCandidates = this.members;
 		// a fazer

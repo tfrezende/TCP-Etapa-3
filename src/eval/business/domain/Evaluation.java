@@ -17,6 +17,10 @@ public class Evaluation {
 		this.score = score;
 	}
 	
+	public int getScore() {
+		return score;
+	}
+
 	public boolean isDone() {
 		final int NOT_INITIALIZED = 0;
 		if (this.score != NOT_INITIALIZED) {			
