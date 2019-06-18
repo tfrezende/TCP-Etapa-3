@@ -46,6 +46,17 @@ public class Product {
 		return sum / scores.size();
 	}
 	
+	public List<Reviewer> getReviewers() {
+		List<Reviewer> reviewers = new ArrayList<>();
+		
+		for(Reviewer reviewer : evaluations.keySet()) {
+			reviewers.add(reviewer);
+		}
+		
+		return reviewers;
+
+	}
+	
 	public boolean isAcceptable() {
 		final double limitValue = 0.0;
 		

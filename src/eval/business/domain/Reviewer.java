@@ -1,5 +1,7 @@
 package eval.business.domain;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -13,13 +15,26 @@ public class Reviewer {
 	private List<EvalGroup> groups;
 	
 	public void addEvaluation(Evaluation evaluation) {
+		Reviewer reviewer = evaluation.getReviewer();
+		List<Evaluation> eval = evaluations.get(reviewer);
 		
+		eval.add(evaluation);
+		
+		evaluations.put(reviewer, eval);
 	}
 	
 	public boolean canEvaluate(Product product) {
-		// a fazer
+		List<Reviewer> reviewers = product.getReviewers();
+		
+		for(Reviewer reviewer : reviewers) {
+			if (this == reviewer) {
+				return true;
+			}
+		} // ainda não finalizada
+		
 		return false;
 	}
+	
 
 	public String getName() {
 		return name;
@@ -35,14 +50,6 @@ public class Reviewer {
 
 	public void setState(String state) {
 		this.state = state;
-	}
-
-	public Map<Reviewer, List<Evaluation>> getEvaluations() {
-		return evaluations;
-	}
-
-	public void setEvaluations(Map<Reviewer, List<Evaluation>> evaluations) {
-		this.evaluations = evaluations;
 	}
 
 	public int getId() {
