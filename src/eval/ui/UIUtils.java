@@ -11,27 +11,17 @@ import org.apache.commons.logging.LogFactory;
 
 public class UIUtils {
 
-	public static final String DATE_FORMAT = "dd/MM/yyyy";
-	public static final String DATE_TIME_FORMAT = "dd/MM/yyyy HH:mm:ss";
 	public static final UIUtils INSTANCE = new UIUtils();
-	public static final String PROPERTY_RESOURCE_BUNDLE = "bank.resources.globalMessages";
+	public static final String PROPERTY_RESOURCE_BUNDLE = "resources.globalMessages";
 
 	private final Log log;
 	private final BufferedReader reader;
-	private final SimpleDateFormat sdf;
-	private final SimpleDateFormat sdtf;
 	private final TextManager textManager;
 
 	private UIUtils() {
 		this.log = LogFactory.getLog(getClass());
 		this.reader = new BufferedReader(new InputStreamReader(System.in));
 		this.textManager = new TextManager(PROPERTY_RESOURCE_BUNDLE);
-		this.sdf = new SimpleDateFormat(DATE_FORMAT);
-		this.sdtf = new SimpleDateFormat(DATE_TIME_FORMAT);
-	}
-
-	public String formatDateTime(Date value) {
-		return sdtf.format(value);
 	}
 
 	/**
@@ -68,32 +58,6 @@ public class UIUtils {
 		StringBuffer sb = new StringBuffer();
 		sb.append(textManager.getText(field)).append(": ").append(value);
 		return sb.toString();
-	}
-
-	public Date readDate(String field) {
-		return readDate(field, false);
-	}
-
-	public Date readDate(String field, boolean allowsEmpty) {
-		Date value = null;
-		while (value == null) {
-			try {
-				System.out.print(textManager.getText(field) + ": ");
-				String str = reader.readLine();
-				if ((str == null || str.isEmpty()) && allowsEmpty) {
-					return null;
-				} else {
-					value = sdf.parse(str);
-				}
-			} catch (ParseException pe) {
-				System.out.println(textManager.getText("exception.date.format",
-						DATE_FORMAT, false));
-				log.warn(pe);
-			} catch (Exception e) {
-				handleUnexceptedError(e);
-			}
-		}
-		return value;
 	}
 
 	public Double readDouble(String field) {
