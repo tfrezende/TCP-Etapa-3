@@ -14,9 +14,7 @@ public class EvalGroup {
 	private List<Reviewer> getOrderedCandidates(Product product){
 		List<Reviewer> orderedCandidates = this.members;
 		// a fazer
-	}
-	
-	
+	}	
 	
 	private List<Product> getOrderedProducts(){
 		List<Product> orderedProducts = this.products;
@@ -37,7 +35,7 @@ public class EvalGroup {
 	}	
 	
 	private void addEvaluation(Product product, Reviewer reviewer) {
-		
+		Evaluation eval = new Evaluation(this, product, reviewer);
 	}
 	
 	public void allocate(int numMembers) {

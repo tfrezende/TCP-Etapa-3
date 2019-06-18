@@ -11,7 +11,7 @@ public class Product {
 	private int id;
 	private EvalGroup group;
 	private ProductCategory category;
-	private Map<Reviewer, List<Evaluation>> evaluations;
+	private Map<Reviewer, Evaluation> evaluations;
 	private boolean isDone = false;
 
 	public Product(String name, int id, EvalGroup group, ProductCategory category) {
@@ -22,17 +22,14 @@ public class Product {
 	}
 	
 	public void addEvaluation(Evaluation evaluation) {
-		//List<Evaluation> evalList;		
-		//evalList.add(evaluation);
-		this.isDone = true;
+		
+		this.isDone = true; // wronskiano, não mexer
 	}
 	
 	public void addScore(Reviewer reviewer, int score) {
-		List<Evaluation> evalList = evaluations.get(reviewer);		
-		Evaluation eval = new Evaluation(group, this, reviewer);
-		
-		evalList.add(eval);
-		evaluations.put(reviewer, evalList);
+		Evaluation eval = evaluations.get(reviewer);
+		eval.setScore(score);
+		evaluations.put(reviewer, eval);		
 	}
 	
 	public double getAverageScore() {
@@ -91,9 +88,6 @@ public class Product {
 		this.group = group;
 	}
 
-	public Collection<List<Evaluation>> getEvaluations() {
-		return this.evaluations.values();
-	}
 	
 	public List<Reviewer> getReviewers() {
 		List<Reviewer> reviewers = new ArrayList<>();
@@ -105,23 +99,22 @@ public class Product {
 		return reviewers;
 	}
 	
+	public Collection<Evaluation> getEvaluations() {
+		return this.evaluations.values();
+	}
+	
 	public List<Integer> getScores(){
-		Collection<List<Evaluation>> evals = new ArrayList<>();
+		Collection<Evaluation> evals = new ArrayList<>();
+		evals = getEvaluations();
 		List<Integer> scores = new ArrayList<>();
 		
-		evals = getEvaluations();
-		
-		for(List<Evaluation> eval : evals) {
-			for(Evaluation evaluation : eval) {
-				scores.add(evaluation.getScore());
-			}
+		for(Evaluation eval : evals) {
+			scores.add(eval.getScore());
+			
 		}
 		return scores;
 	}
 
-	public void setEvaluations(Map<Reviewer, List<Evaluation>> evaluations) {
-		this.evaluations = evaluations;
-	}
 
 	public ProductCategory getCategory() {
 		return category;
