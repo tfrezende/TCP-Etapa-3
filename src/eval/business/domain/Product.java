@@ -21,15 +21,16 @@ public class Product {
 		this.category = category;
 	}
 	
-	public void addEvaluation(Evaluation evaluation) {
+	public void addEvaluation(Evaluation evaluation) {		
 		
-		this.isDone = true; // wronskiano, não mexer
+		evaluations.put(evaluation.getReviewer(), evaluation);		
+		this.isDone = true;
 	}
 	
 	public void addScore(Reviewer reviewer, int score) {
 		Evaluation eval = evaluations.get(reviewer);
 		eval.setScore(score);
-		evaluations.put(reviewer, eval);		
+		addEvaluation(eval);
 	}
 	
 	public double getAverageScore() {
@@ -47,6 +48,7 @@ public class Product {
 	
 	public boolean isAcceptable() {
 		final double limitValue = 0.0;
+		
 		if(getAverageScore() < limitValue) {
 			return false;
 		}
@@ -89,16 +91,6 @@ public class Product {
 	}
 
 	
-	public List<Reviewer> getReviewers() {
-		List<Reviewer> reviewers = new ArrayList<>();
-		
-		for(Reviewer eval : evaluations.keySet()) {
-			reviewers.add(eval);
-		}
-		
-		return reviewers;
-	}
-	
 	public Collection<Evaluation> getEvaluations() {
 		return this.evaluations.values();
 	}
@@ -114,7 +106,6 @@ public class Product {
 		}
 		return scores;
 	}
-
 
 	public ProductCategory getCategory() {
 		return category;
