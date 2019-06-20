@@ -38,9 +38,9 @@ public class UIUtils {
 		System.exit(-1);
 	}
 
-	public String propertyToString(String field, Date value) {
-		return propertyToString(field, sdf.format(value));
-	}
+	//public String propertyToString(String field, Date value) {
+	//	return propertyToString(field, sdf.format(value));
+	//}
 
 	public String propertyToString(String field, double value) {
 		return propertyToString(field, new Double(value).toString());

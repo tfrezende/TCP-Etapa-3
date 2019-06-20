@@ -1,25 +1,36 @@
 package eval.ui;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 public class CatalogueInterface {
 	
 	private final int NUM_OPCOES = 3;
+	protected final Map<Integer, UIAction> actions;
 	
+	protected CatalogueInterface() {
+		this.actions = new LinkedHashMap<>();
+		actions.put(1, new AllocateCommand());
+		actions.put(2, new IncludeCommand());
+		actions.put(3, new SelectFileCommand());
+	}
+
 	private String showMenu() {
 		StringBuffer sb = new StringBuffer(); //poe numa lista o menu
-		
-		sb.append(UIUtils.INSTANCE.getTextManager().getText("menu.1"));
-		sb.append(UIUtils.INSTANCE.getTextManager().getText("menu.allocation"));
+
+		sb.append("MENU");
 		sb.append("\n");
 		
-		sb.append(UIUtils.INSTANCE.getTextManager().getText("menu.2"));
-		sb.append(UIUtils.INSTANCE.getTextManager().getText("menu.assign.notes"));
+		sb.append("(1) Alocação de Produtos a Membros do Comitê de Avaliação");
+		sb.append("\n");
+
+		sb.append("(2) Atribuição de Notas a Produtos");
 		sb.append("\n");
 		
-		sb.append(UIUtils.INSTANCE.getTextManager().getText("menu.3"));
-		sb.append(UIUtils.INSTANCE.getTextManager().getText("menu.products.selection"));
+		sb.append("(3) Seleção de Artigos");
 		sb.append("\n");
 		
-		sb.append(UIUtils.INSTANCE.getTextManager().getText("message.ask.option"));
+		sb.append("Escolha uma opção: ");
 		
 		return sb.toString();
 	}
@@ -36,5 +47,7 @@ public class CatalogueInterface {
 			option = uiUtils.readInteger(null);
 		}
 	}
+	
+	
 
 }
