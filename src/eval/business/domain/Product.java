@@ -11,7 +11,7 @@ public class Product {
 	private int id;
 	private EvalGroup group;
 	private ProductCategory category;
-	private Map<Reviewer, List<Evaluation>> evaluations;
+	private Map<Reviewer, Evaluation> evaluations;
 	private boolean isDone = false;
 
 	public Product(String name, int id, EvalGroup group, ProductCategory category) {
@@ -21,18 +21,16 @@ public class Product {
 		this.category = category;
 	}
 	
-	public void addEvaluation(Evaluation evaluation) {
-		//List<Evaluation> evalList;		
-		//evalList.add(evaluation);
+	public void addEvaluation(Evaluation evaluation) {		
+		
+		evaluations.put(evaluation.getReviewer(), evaluation);		
 		this.isDone = true;
 	}
 	
 	public void addScore(Reviewer reviewer, int score) {
-		List<Evaluation> evalList = evaluations.get(reviewer);		
-		Evaluation eval = new Evaluation(group, this, reviewer);
-		
-		evalList.add(eval);
-		evaluations.put(reviewer, evalList);
+		Evaluation eval = evaluations.get(reviewer);
+		eval.setScore(score);
+		addEvaluation(eval);
 	}
 	
 	public double getAverageScore() {
@@ -48,8 +46,20 @@ public class Product {
 		return sum / scores.size();
 	}
 	
+	public List<Reviewer> getReviewers() {
+		List<Reviewer> reviewers = new ArrayList<>();
+		
+		for(Reviewer reviewer : evaluations.keySet()) {
+			reviewers.add(reviewer);
+		}
+		
+		return reviewers;
+
+	}
+	
 	public boolean isAcceptable() {
 		final double limitValue = 0.0;
+		
 		if(getAverageScore() < limitValue) {
 			return false;
 		}
@@ -91,36 +101,21 @@ public class Product {
 		this.group = group;
 	}
 
-	public Collection<List<Evaluation>> getEvaluations() {
+	
+	public Collection<Evaluation> getEvaluations() {
 		return this.evaluations.values();
 	}
 	
-	public List<Reviewer> getReviewers() {
-		List<Reviewer> reviewers = new ArrayList<>();
-		
-		for(Reviewer eval : evaluations.keySet()) {
-			reviewers.add(eval);
-		}
-		
-		return reviewers;
-	}
-	
 	public List<Integer> getScores(){
-		Collection<List<Evaluation>> evals = new ArrayList<>();
+		Collection<Evaluation> evals = new ArrayList<>();
+		evals = getEvaluations();
 		List<Integer> scores = new ArrayList<>();
 		
-		evals = getEvaluations();
-		
-		for(List<Evaluation> eval : evals) {
-			for(Evaluation evaluation : eval) {
-				scores.add(evaluation.getScore());
-			}
+		for(Evaluation eval : evals) {
+			scores.add(eval.getScore());
+			
 		}
 		return scores;
-	}
-
-	public void setEvaluations(Map<Reviewer, List<Evaluation>> evaluations) {
-		this.evaluations = evaluations;
 	}
 
 	public ProductCategory getCategory() {
