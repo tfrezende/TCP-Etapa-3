@@ -3,6 +3,10 @@ package eval.ui;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import eval.ui.command.AllocateCommand;
+import eval.ui.command.IncludeCommand;
+import eval.ui.command.SelectFileCommand;
+
 public class CatalogueInterface {
 	
 	private final int NUM_OPCOES = 3;
@@ -10,9 +14,9 @@ public class CatalogueInterface {
 	
 	protected CatalogueInterface() {
 		this.actions = new LinkedHashMap<>();
-		actions.put(1, new AllocateCommand());
-		actions.put(2, new IncludeCommand());
-		actions.put(3, new SelectFileCommand());
+		actions.put(1, new AllocateCommand(this));
+		actions.put(2, new IncludeCommand(this));
+		actions.put(3, new SelectFileCommand(this));
 	}
 
 	private String showMenu() {
@@ -21,16 +25,16 @@ public class CatalogueInterface {
 		sb.append("MENU");
 		sb.append("\n");
 		
-		sb.append("(1) Alocação de Produtos a Membros do Comitê de Avaliação");
+		sb.append("(1) AlocaÃ§Ã£o de Produtos a Membros do ComitÃª de AvaliaÃ§Ã£o");
 		sb.append("\n");
 
-		sb.append("(2) Atribuição de Notas a Produtos");
+		sb.append("(2) AtribuiÃ§Ã£o de Notas a Produtos");
 		sb.append("\n");
 		
-		sb.append("(3) Seleção de Artigos");
+		sb.append("(3) SeleÃ§Ã£o de Artigos");
 		sb.append("\n");
 		
-		sb.append("Escolha uma opção: ");
+		sb.append("Escolha uma opÃ§Ã£o: ");
 		
 		return sb.toString();
 	}

@@ -1,10 +1,18 @@
 package eval;
 
+import eval.data.Database;
+
 public class Eval {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		Eval eval = null;
+		
+		eval = new Eval();
 
+	}
+	
+	public Eval() {
+		Database database = new Database();
 	}
 
 }
