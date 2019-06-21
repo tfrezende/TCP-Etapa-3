@@ -68,13 +68,8 @@ public class Product {
 		}
 	}
 	
-	public boolean isEvaluationDone() {
-		if (!isDone) {
-			return false;
-		}
-		else {
-			return true;
-		}
+	public boolean isEvaluationDone() {		
+			return isDone;
 	}
 
 	public String getName() {

@@ -61,7 +61,21 @@ public class EvalGroup {
 		this.name = name;
 	}
 
+	public List<Reviewer> getMembers() {
+		return members;
+	}
 
+	public void setMembers(List<Reviewer> members) {
+		this.members = members;
+	}
+
+	public List<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<Product> products) {
+		this.products = products;
+	}
 
 	public Map<Product, List<Evaluation>> getEvaluations() {
 		return evaluations;
