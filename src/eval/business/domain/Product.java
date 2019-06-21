@@ -22,7 +22,6 @@ public class Product {
 	}
 	
 	public void addEvaluation(Evaluation evaluation) {		
-		
 		evaluations.put(evaluation.getReviewer(), evaluation);		
 		this.isDone = true;
 	}
@@ -52,9 +51,8 @@ public class Product {
 		for(Reviewer reviewer : evaluations.keySet()) {
 			reviewers.add(reviewer);
 		}
-		
-		return reviewers;
 
+		return reviewers;
 	}
 	
 	public boolean isAcceptable() {
