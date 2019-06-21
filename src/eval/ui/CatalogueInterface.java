@@ -3,6 +3,7 @@ package eval.ui;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import eval.data.Database;
 import eval.ui.command.AllocateCommand;
 import eval.ui.command.IncludeCommand;
 import eval.ui.command.SelectFileCommand;
@@ -13,10 +14,11 @@ public class CatalogueInterface {
 	protected final Map<Integer, UIAction> actions;
 	
 	protected CatalogueInterface() {
+		Database database = new Database();
 		this.actions = new LinkedHashMap<>();
-		actions.put(1, new AllocateCommand(this));
-		actions.put(2, new IncludeCommand(this));
-		actions.put(3, new SelectFileCommand(this));
+		actions.put(1, new AllocateCommand(this, database));
+		actions.put(2, new IncludeCommand(this, database));
+		actions.put(3, new SelectFileCommand(this, database));
 	}
 
 	private String showMenu() {
