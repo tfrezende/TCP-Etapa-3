@@ -1,5 +1,6 @@
 package eval.ui.command;
 
+import eval.data.Database;
 import eval.ui.CatalogueInterface;
 import eval.ui.TextManager;
 import eval.ui.UIAction;
@@ -7,16 +8,19 @@ import eval.ui.UIUtils;
 
 public abstract class Command implements UIAction {
 
-	protected final CatalogueInterface catalogueInterface;
+	private CatalogueInterface catalogueInterface;
+	protected Database database;
 	private boolean isEnabled;
 
-	protected Command(CatalogueInterface catalogueInterface) {
-		this(catalogueInterface, false);
+	public Command(CatalogueInterface catalogueInterface, Database database) {
+		this(catalogueInterface, database, false);
 	}
 
-	protected Command(CatalogueInterface catalogueInterface, boolean isEnabled) {
+	public Command(CatalogueInterface catalogueInterface, Database database,
+			boolean isEnabled) {
 		this.catalogueInterface = catalogueInterface;
 		this.isEnabled = isEnabled;
+		this.database = database;
 	}
 
 	protected TextManager getTextManager() {
