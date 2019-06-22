@@ -26,13 +26,21 @@ public class IncludeCommand extends Command {
 		final Integer MAX_VALUE = 3;
 		
 		products = (List<Product>) database.getAllProducts();
-		// Exibir aqui todos produtos na tela
+		
+		System.out.println("--- Produtos registrados ---");
+		for(Product regProd : products) {
+			System.out.println(regProd.getId() + "\t" + regProd.getName());
+		}
 		
 		Integer productId = UIUtils.INSTANCE.readInteger("message.ask.product");
 		Product product = products.get(productId);
-		// Testar aqui se productId é valido
+
 		reviewers = product.getReviewers();
-		// Exibir aqui todos avaliadores na tela
+		
+		System.out.println("--- Avaliadores registrados ---");
+		for(Reviewer regRev : reviewers) {
+			System.out.println(regRev.getId() + "\t" + regRev.getName());
+		}
 		
 		Integer reviewerId = UIUtils.INSTANCE.readInteger("message.ask.reviewer");
 		
