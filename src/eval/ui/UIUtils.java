@@ -2,9 +2,6 @@ package eval.ui;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -37,10 +34,6 @@ public class UIUtils {
 		e.printStackTrace();
 		System.exit(-1);
 	}
-
-	//public String propertyToString(String field, Date value) {
-	//	return propertyToString(field, sdf.format(value));
-	//}
 
 	public String propertyToString(String field, double value) {
 		return propertyToString(field, new Double(value).toString());
