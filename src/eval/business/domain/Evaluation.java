@@ -6,6 +6,7 @@ public class Evaluation {
 	private Reviewer reviewer;
 	private Product product;
 	private int score;
+	private boolean done = false;
 	
 	public Evaluation(EvalGroup group, Product product, Reviewer reviewer){
 		this.setGroup(group);
@@ -15,6 +16,7 @@ public class Evaluation {
 	
 	public void setScore(int score) {
 		this.score = score;
+		this.done =true;
 	}
 	
 	public int getScore() {
@@ -22,13 +24,7 @@ public class Evaluation {
 	}
 
 	public boolean isDone() {
-		final int NOT_INITIALIZED = 0;
-		if (this.score != NOT_INITIALIZED) {			
-			return true;
-		}
-		else {
-			return false;
-		}
+		return done;
 	}
 
 	public EvalGroup getGroup() {

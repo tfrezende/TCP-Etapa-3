@@ -12,7 +12,6 @@ public class Product {
 	private EvalGroup group;
 	private ProductCategory category;
 	private Map<Reviewer, Evaluation> evaluations;
-	private boolean isDone = false;
 
 	public Product(String name, int id, EvalGroup group, ProductCategory category) {
 		this.name = name;
@@ -21,9 +20,15 @@ public class Product {
 		this.category = category;
 	}
 	
+	public boolean containsReviewer(Reviewer reviewer){
+		if(evaluations.containsKey(reviewer)) {
+			return true;
+		}
+		return false;
+	}
+	
 	public void addEvaluation(Evaluation evaluation) {		
 		evaluations.put(evaluation.getReviewer(), evaluation);		
-		this.isDone = true;
 	}
 	
 	public void addScore(Reviewer reviewer, int score) {
@@ -67,7 +72,14 @@ public class Product {
 	}
 	
 	public boolean isEvaluationDone() {		
-			return isDone;
+		List<Evaluation> evals = (List<Evaluation>) getEvaluations();
+		boolean isDone = true;
+		
+		for (Evaluation eval: evals) {
+			if (eval.isDone() == false)
+				isDone = false;
+		}
+		return isDone;
 	}
 
 	public String getName() {

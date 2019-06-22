@@ -1,5 +1,6 @@
 package eval.business.domain;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -19,10 +20,6 @@ public class Reviewer {
 		eval.add(evaluation);
 		
 		evaluations.put(reviewer, eval);
-	}
-	
-	public Map<Reviewer, List<Evaluation>> getEvaluations() {
-		return evaluations;
 	}
 
 	public void setEvaluations(Map<Reviewer, List<Evaluation>> evaluations) {
@@ -46,14 +43,12 @@ public class Reviewer {
 	}
 
 	public boolean canEvaluate(Product product) {
-		List<Reviewer> reviewers = product.getReviewers();
-		
-		for(Reviewer reviewer : reviewers) {
-			if (this == reviewer) {
-				return true;
+				
+		for(ProductCategory category : categories) {
+			if (product.containsReviewer(this) || category != product.getCategory()){
+				return false;
 			}
-		} // ainda não finalizada
-		
+		}		
 		return false;
 	}
 	
@@ -80,5 +75,9 @@ public class Reviewer {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public Collection<List<Evaluation>> getEvaluations() {
+		return this.evaluations.values();
 	}
 }
