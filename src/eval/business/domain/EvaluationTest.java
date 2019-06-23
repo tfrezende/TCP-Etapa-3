@@ -12,7 +12,7 @@ public class EvaluationTest {
 	}
 	
 	@Test
-	public void testGetScore(int score) {
+	public void testGetScore() {
 		assertNotNull(eval.getScore());
 		assertTrue(eval.getScore() <= 3);
 		assertTrue(eval.getScore() >= -3);
