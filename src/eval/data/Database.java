@@ -225,6 +225,8 @@ public class Database {
 	}
 	
 	private void initEvaluations(List<Product> prods, List<Reviewer> reviewers) {
+		Map<Reviewer, Evaluation> evaluations = new HashMap<Reviewer, Evaluation>();
+		
 		Evaluation eval = new Evaluation(prods.get(0), reviewers.get(7));
 		//prods.get(0).addEvaluation(new Evaluation(prods.get(0), reviewers.get(7)));
 		reviewers.get(7).addEvaluation(eval);
