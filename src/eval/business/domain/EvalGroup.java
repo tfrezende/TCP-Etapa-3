@@ -24,7 +24,6 @@ public class EvalGroup {
 		
 	public EvalGroup(String name, Map<Product, List<Evaluation>> evaluations, List<Reviewer> members,
 			List<Product> products) {
-		super();
 		this.name = name;
 		this.evaluations = evaluations;
 		this.members = members;
@@ -47,8 +46,7 @@ public class EvalGroup {
 		SortByScore sort = new SortByScore();
 		Collections.sort(acceptableProducts, sort.reversed());
 		
-		return acceptableProducts;
-		
+		return acceptableProducts;		
 	}
 	
 	public List<Product> getNotAcceptableProducts(){
@@ -73,7 +71,7 @@ public class EvalGroup {
 		
 		int i = 0;
 		
-		System.out.println("Iniciando alocação");
+		System.out.println(UIUtils.INSTANCE.getTextManager().getText("allocation.start") + "/n");
 		
 		Reviewer admin = Login(this);
 		
@@ -102,8 +100,8 @@ public class EvalGroup {
 			}
 			i++;
 		}
-		System.out.println("Fim da alocação");
-		System.out.println("Alocações realizadas:");
+		System.out.println(UIUtils.INSTANCE.getTextManager().getText("allocation.end") + "/n");
+		System.out.println(UIUtils.INSTANCE.getTextManager().getText("allocation.num.alloc") + "/n");
 		
 		for(int j = 0; j < allocatedReviewers.size(); j++) {
 			System.out.println(allocatedProducts.get(j).getName() + " --> " +
