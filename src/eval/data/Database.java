@@ -45,7 +45,7 @@ public class Database {
 		return this.products.values();
 	}
 	
-	void initData() {
+	public void initData() {
 		// Categories
 		List<ProductCategory> categories = new ArrayList<>();
 		categories.add(new ProductCategory("BB Cream"));
@@ -180,7 +180,8 @@ public class Database {
 		evalGroups.get(2).setAllocatedProducts(allocatedProducts2);
 		
 		// Evaluations
-		initEvaluations(prods, reviewers);		
+		initEvaluations(prods, reviewers);
+		
 		
 		// Maps
 		for (Product prod : prods) {
@@ -224,7 +225,10 @@ public class Database {
 	}
 	
 	private void initEvaluations(List<Product> prods, List<Reviewer> reviewers) {
-		prods.get(0).addEvaluation(new Evaluation(prods.get(0), reviewers.get(7)));
+		Evaluation eval = new Evaluation(prods.get(0), reviewers.get(7));
+		//prods.get(0).addEvaluation(new Evaluation(prods.get(0), reviewers.get(7)));
+		reviewers.get(7).addEvaluation(eval);
+		prods.get(0).addEvaluation(eval);
 		prods.get(0).addScore(reviewers.get(7), 2);		
 		prods.get(0).addEvaluation(new Evaluation(prods.get(0), reviewers.get(9)));
 		

@@ -17,7 +17,7 @@ public class EvalGroup {
 	private List<Product> acceptableProducts;
 	private List<Product> notAcceptableProducts;
 	private Collection<Integer> productIds;
-	final double MIN_VALUE = 0.0;
+	private final double MIN_VALUE = 0.0;
 	private List<Reviewer> allocatedReviewers;
 	private List<Product> allocatedProducts;
 		
@@ -33,6 +33,10 @@ public class EvalGroup {
 		Collections.sort(orderedCandidates, new SortByNumProds());
 		
 		return orderedCandidates;
+	}
+	
+	public List<Evaluation> getEvaluationsByProduct(Product product){
+		return this.evaluations.get(product);
 	}
 	
 	public List<Product> getAcceptableProducts(){		
