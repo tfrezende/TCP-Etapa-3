@@ -180,7 +180,7 @@ public class Database {
 		evalGroups.get(2).setAllocatedProducts(allocatedProducts2);
 		
 		// Evaluations
-		initEvaluations(prods, reviewers);
+		//initEvaluations(prods, reviewers);
 		
 		
 		// Maps

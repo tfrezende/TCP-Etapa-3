@@ -9,7 +9,7 @@ import org.apache.commons.logging.LogFactory;
 public class UIUtils {
 
 	public static final UIUtils INSTANCE = new UIUtils();
-	public static final String PROPERTY_RESOURCE_BUNDLE = "resources.globalMessages";
+	public static final String PROPERTY_RESOURCE_BUNDLE = "eval.resources.globalMessages";
 
 	private final Log log;
 	private final BufferedReader reader;
