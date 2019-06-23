@@ -39,6 +39,17 @@ public class ProductTest {
 	public void testGetName() {
 		assertNotNull(prod.getName());
 		assertFalse(prod.getName() == "");
+		assertTrue(prod.getName() == "L’oreal DD Cream");
+		assertTrue(prod.getName() == "Avon CC Cream");
+		assertTrue(prod.getName() == "Revolution Powder Sunscreeen");
+		assertTrue(prod.getName() == "Maybelline BB Cream");
+		assertTrue(prod.getName() == "Revlon Foundation+SPF20");
+		assertTrue(prod.getName() == "Nivea Matte Face SPF");
+		assertTrue(prod.getName() == "La Roche CC Cream");
+		assertTrue(prod.getName() == "Yves Rocher Powder+SPF15");
+		assertTrue(prod.getName() == "Nivea BB Cream");
+		assertTrue(prod.getName() == "Base O Boticário SPF20");
+		assertTrue(prod.getName() == "Natura SPF20 Rosto Matte");
 	}
 
 	@Test
@@ -50,6 +61,7 @@ public class ProductTest {
 	@Test
 	public void testGetGroup() {
 		assertNotNull(prod.getGroup());
+		assertNotEquals(prod.getGroup(), "");
 		assertEquals(prod.getGroup(), "SPF A");
 		assertEquals(prod.getGroup(), "SPF B");
 		assertEquals(prod.getGroup(), "SPF C");
@@ -58,6 +70,7 @@ public class ProductTest {
 	@Test
 	public void testGetEvaluations() {
 		assertNotNull(prod.getEvaluations());
+		assertFalse(prod.getEvaluations().isEmpty());
 	}
 
 	@Test
@@ -72,6 +85,7 @@ public class ProductTest {
 	@Test
 	public void testGetCategory() {
 		assertNotNull(prod.getCategory());
+		assertNotEquals(prod.getCategory(), "");
 		assertEquals(prod.getCategory(), "BB Cream");
 		assertEquals(prod.getCategory(), "CC Cream");
 		assertEquals(prod.getCategory(), "DD Cream");

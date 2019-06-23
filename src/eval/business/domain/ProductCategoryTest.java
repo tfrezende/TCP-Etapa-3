@@ -14,6 +14,12 @@ public class ProductCategoryTest {
 	@Test
 	public void testName() {
 		assertNotNull(prodCat.getName());
-		assertTrue(prodCat.getName() == "");
+		assertFalse(prodCat.getName() == "");
+		assertEquals(prodCat.getName(), "BB Cream");
+		assertEquals(prodCat.getName(), "CC Cream");
+		assertEquals(prodCat.getName(), "DD Cream");
+		assertEquals(prodCat.getName(), "Foundation+SPF");
+		assertEquals(prodCat.getName(), "Oil Free Matte SPF");
+		assertEquals(prodCat.getName(), "Powder Sunscreen");
 	}
 }
