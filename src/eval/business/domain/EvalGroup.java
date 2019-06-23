@@ -19,11 +19,10 @@ public class EvalGroup {
 	private List<Reviewer> allocatedReviewers;
 	private List<Product> allocatedProducts;
 		
-	public EvalGroup(String name, Map<Product, List<Evaluation>> evaluations, List<Reviewer> members,
+	public EvalGroup(String name, List<Reviewer> members,
 			List<Product> products) {
 		super();
 		this.name = name;
-		this.evaluations = evaluations;
 		this.members = members;
 		this.products = products;
 	}
