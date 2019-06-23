@@ -73,6 +73,7 @@ public class ReviewerTest {
 		assertTrue(rev.getId() == 1);
 	}
 
+	@Test
 	public void testGetEvaluations() {
 		assertNotNull(rev.getEvaluations());
 		assertFalse(rev.getEvaluations().isEmpty());
