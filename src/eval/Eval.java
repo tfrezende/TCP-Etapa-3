@@ -1,18 +1,16 @@
 package eval;
 
+import java.io.FileNotFoundException;
 
-
+import eval.ui.CatalogueInterface;
 
 public class Eval {
 
-	public static void main(String[] args) {
-
-        
+	public static void main(String[] args) throws FileNotFoundException {        
 		
-		//Eval eval = null;
+		CatalogueInterface catalogueInterface = new CatalogueInterface();
 		
-		//eval = new Eval();
-
+		catalogueInterface.showMenu();
 	}
 	
 	public Eval() {

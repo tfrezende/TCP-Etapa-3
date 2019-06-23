@@ -1,10 +1,4 @@
 package eval.ui;
-/*
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.util.Properties;
-*/
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -25,63 +19,14 @@ public class CatalogueInterface {
 	private final int NUM_OPCOES = 3;
 	protected final Map<Integer, UIAction> actions;
 	protected Log log;
-	//Properties prop = new Properties();
 	
-	protected CatalogueInterface() { //throws FileNotFoundException
+	public CatalogueInterface() {
 		Database database = new Database();
 		this.actions = new LinkedHashMap<>();
 		actions.put(1, new AllocateCommand(this, database));
 		actions.put(2, new IncludeCommand(this, database));
 		actions.put(3, new SelectFileCommand(this, database));
-		//InputStream input = new FileInputStream("src/eval/resources/globalMessages.properties");
 	}
-	
-	/*
-	private String getMenu() {
-		StringBuffer sb = new StringBuffer(); //poe numa lista o menu
-
-		sb.append("MENU");
-		sb.append("\n");
-		
-		sb.append("(1) Alocacao de Produtos a Membros do Comite de Avaliacao");
-		sb.append("\n");
-
-		sb.append("(2) Atribuicao de Notas a Produtos");
-		sb.append("\n");
-		
-		sb.append("(3) Selecao de Artigos");
-		sb.append("\n");
-		
-		sb.append("Escolha uma opcao: ");
-		
-		return sb.toString();
-	}
-	*/
-	
-	/*
-	private String getMenu() {
-		StringBuffer sb = new StringBuffer(); //poe numa lista o menu
-
-		sb.append(prop.getProperty("menu.menu"));
-		sb.append("\n");
-		
-		sb.append(prop.getProperty("menu.1"));
-		sb.append(prop.getProperty("menu.allocation"));
-		sb.append("\n");
-		
-		sb.append(prop.getProperty("menu.2"));
-		sb.append(prop.getProperty("menu.assign.notes"));
-		sb.append("\n");
-		
-		sb.append(prop.getProperty("menu.3"));
-		sb.append(prop.getProperty("menu.products.selection"));
-		sb.append("\n");
-		
-		sb.append(prop.getProperty("message.ask.option"));
-		
-		return sb.toString();
-	}
-	*/
 	
 	private String getMenu() {
 		StringBuffer sb = new StringBuffer(); //poe numa lista o menu

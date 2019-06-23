@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import eval.business.domain.EvalGroup;
+import eval.business.domain.Evaluation;
 import eval.business.domain.Product;
 import eval.business.domain.ProductCategory;
 import eval.business.domain.Reviewer;
@@ -44,7 +45,7 @@ public class Database {
 		return this.products.values();
 	}
 	
-	void initData() {
+	public void initData() {
 		// Categories
 		List<ProductCategory> categories = new ArrayList<>();
 		categories.add(new ProductCategory("BB Cream"));
@@ -129,31 +130,12 @@ public class Database {
 						
 		// Products
 		List<Product> prods = new ArrayList<>();
-		prods.add(new Product("L’oreal DD Cream", 1, categories.get(2), 
-				reviewers.get(0)));
-		prods.add(new Product("Avon CC Cream", 2, categories.get(1), 
-				reviewers.get(5)));
-		prods.add(new Product("Revolution Powder Sunscreeen", 3, categories.get(3), 
-				reviewers.get(6)));
-		prods.add(new Product("Maybelline BB Cream ", 4, categories.get(0),
-				reviewers.get(7)));
-		prods.add(new Product("Revlon Foundation+SPF20", 5, categories.get(4),
-				reviewers.get(8)));
-		prods.add(new Product("Nivea Matte Face SPF", 6, categories.get(5),
-				reviewers.get(9)));
-		prods.add(new Product("La Roche CC Cream", 7, categories.get(1),
-				reviewers.get(5)));
-		prods.add(new Product("Yves Rocher Powder+SPF15", 8, categories.get(3),
-				reviewers.get(6)));
-		prods.add(new Product("Nivea BB Cream", 9, categories.get(0),
-				reviewers.get(7)));
-		prods.add(new Product("Base O Boticário SPF20", 10, categories.get(4),
-				reviewers.get(8)));
-		prods.add(new Product("Natura SPF20 Rosto Matte", 11, categories.get(5),
-				reviewers.get(9)));
+		
+		prods = initProducts(categories, reviewers);		
 		
 		// Groups
 		List<EvalGroup> evalGroups = new ArrayList<>();
+		
 		List<Reviewer> members1 = new ArrayList<>();
 		members1.add(reviewers.get(0));
 		members1.add(reviewers.get(1));
@@ -184,17 +166,96 @@ public class Database {
 		members3.add(reviewers.get(9));
 		evalGroups.add(new EvalGroup("SPF C", members3, prods));
 		
+		
+		// Allocation
+		List<Product> allocatedProducts1 = new ArrayList<>();
+		allocatedProducts1.add(prods.get(2));
+		allocatedProducts1.add(prods.get(3));
+		allocatedProducts1.add(prods.get(4));
+		allocatedProducts1.add(prods.get(5));		
+		evalGroups.get(1).setAllocatedProducts(allocatedProducts1);
+		
+		List<Product> allocatedProducts2 = new ArrayList<>();
+		allocatedProducts2.add(prods.get(0));		
+		evalGroups.get(2).setAllocatedProducts(allocatedProducts2);
+		
+		// Evaluations
+		//initEvaluations(prods, reviewers);
+		
+		
+		// Maps
 		for (Product prod : prods) {
 			this.products.put(prod.getId(), prod);
+		}		
+		for(EvalGroup group : evalGroups) {
+			groups.put(group.getName(), group);
 		}
 		
-		for (EvalGroup group : evalGroups) {
-			this.groups.put(group.getName(), group);
-		}
 		
-		//Falta adicionar os evaluations
+	}
+	
+	private List<Product> initProducts(List<ProductCategory> categories, 
+			List<Reviewer> reviewers){
+		List<Product> prods = new ArrayList<>();
 		
+		prods.add(new Product("L’oreal DD Cream", 1, categories.get(2), 
+				reviewers.get(0)));
+		prods.add(new Product("Avon CC Cream", 2, categories.get(1), 
+				reviewers.get(5)));
+		prods.add(new Product("Revolution Powder Sunscreeen", 3, categories.get(3), 
+				reviewers.get(6)));
+		prods.add(new Product("Maybelline BB Cream ", 4, categories.get(0),
+				reviewers.get(7)));
+		prods.add(new Product("Revlon Foundation+SPF20", 5, categories.get(4),
+				reviewers.get(8)));
+		prods.add(new Product("Nivea Matte Face SPF", 6, categories.get(5),
+				reviewers.get(9)));
+		prods.add(new Product("La Roche CC Cream", 7, categories.get(1),
+				reviewers.get(5)));
+		prods.add(new Product("Yves Rocher Powder+SPF15", 8, categories.get(3),
+				reviewers.get(6)));
+		prods.add(new Product("Nivea BB Cream", 9, categories.get(0),
+				reviewers.get(7)));
+		prods.add(new Product("Base O Boticário SPF20", 10, categories.get(4),
+				reviewers.get(8)));
+		prods.add(new Product("Natura SPF20 Rosto Matte", 11, categories.get(5),
+				reviewers.get(9)));
 		
+		return prods;
+	}
+	
+	private void initEvaluations(List<Product> prods, List<Reviewer> reviewers) {
+		Evaluation eval = new Evaluation(prods.get(0), reviewers.get(7));
+		//prods.get(0).addEvaluation(new Evaluation(prods.get(0), reviewers.get(7)));
+		reviewers.get(7).addEvaluation(eval);
+		prods.get(0).addEvaluation(eval);
+		prods.get(0).addScore(reviewers.get(7), 2);		
+		prods.get(0).addEvaluation(new Evaluation(prods.get(0), reviewers.get(9)));
+		
+		prods.get(1).addEvaluation(new Evaluation(prods.get(1), reviewers.get(6)));
+		prods.get(1).addScore(reviewers.get(6), 2);		
+		prods.get(1).addEvaluation(new Evaluation(prods.get(1), reviewers.get(1)));
+		prods.get(1).addScore(reviewers.get(1), 3);
+		
+		prods.get(2).addEvaluation(new Evaluation(prods.get(2), reviewers.get(3)));
+		prods.get(2).addScore(reviewers.get(3), -1);		
+		prods.get(2).addEvaluation(new Evaluation(prods.get(2), reviewers.get(5)));
+		prods.get(2).addScore(reviewers.get(5), 1);
+		
+		prods.get(3).addEvaluation(new Evaluation(prods.get(3), reviewers.get(0)));
+		prods.get(3).addScore(reviewers.get(0), 1);		
+		prods.get(3).addEvaluation(new Evaluation(prods.get(3), reviewers.get(2)));
+		prods.get(3).addScore(reviewers.get(2), 0);
+		
+		prods.get(4).addEvaluation(new Evaluation(prods.get(2), reviewers.get(3)));
+		prods.get(4).addScore(reviewers.get(3), -3);		
+		prods.get(4).addEvaluation(new Evaluation(prods.get(2), reviewers.get(4)));
+		prods.get(4).addScore(reviewers.get(4), -3);
+		
+		prods.get(5).addEvaluation(new Evaluation(prods.get(2), reviewers.get(2)));
+		prods.get(5).addScore(reviewers.get(2), -1);		
+		prods.get(5).addEvaluation(new Evaluation(prods.get(2), reviewers.get(5)));
+		prods.get(5).addScore(reviewers.get(5), 0);
 	}
 	
 }

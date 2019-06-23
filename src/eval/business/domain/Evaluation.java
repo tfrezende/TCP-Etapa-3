@@ -12,6 +12,17 @@ public class Evaluation {
 		this.setGroup(group);
 		this.setProduct(product);
 		this.setReviewer(reviewer);
+		
+	}public Evaluation(EvalGroup group, Product product, Reviewer reviewer, int score){
+		this.setGroup(group);
+		this.setProduct(product);
+		this.setReviewer(reviewer);
+		this.score = score;
+	}
+	
+	public Evaluation(Product product, Reviewer reviewer){
+		this.setProduct(product);
+		this.setReviewer(reviewer);
 	}
 	
 	public void setScore(int score) {
