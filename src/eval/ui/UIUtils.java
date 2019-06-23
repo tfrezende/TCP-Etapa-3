@@ -57,7 +57,7 @@ public class UIUtils {
 		Double value = null;
 		while (value == null) {
 			try {
-				System.out.print(textManager.getText(field) + ": ");
+				System.out.print(textManager.getText(field));
 				value = new Double(reader.readLine());
 			} catch (NumberFormatException nfe) {
 				System.out.println(textManager
@@ -75,7 +75,7 @@ public class UIUtils {
 		while (value == null) {
 			try {
 				if (field != null)
-					System.out.print(textManager.getText(field) + ": ");
+					System.out.print(textManager.getText(field));
 				value = new Integer(reader.readLine());
 			} catch (NumberFormatException nfe) {
 				System.out.println(textManager
@@ -106,7 +106,7 @@ public class UIUtils {
 		Long value = null;
 		while (value == null) {
 			try {
-				System.out.print(textManager.getText(field) + ": ");
+				System.out.print(textManager.getText(field));
 				value = new Long(reader.readLine());
 			} catch (NumberFormatException nfe) {
 				System.out
@@ -124,7 +124,7 @@ public class UIUtils {
 		while (value == null) {
 			try {
 				if (field != null)
-					System.out.print(textManager.getText(field) + ": ");
+					System.out.print(textManager.getText(field));
 				value = reader.readLine();
 			} catch (Exception e) {
 				handleUnexceptedError(e);
