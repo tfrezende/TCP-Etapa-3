@@ -13,6 +13,13 @@ public class Reviewer {
 	private List<ProductCategory> categories;
 	private List<EvalGroup> groups;
 	
+	public Reviewer(String name, String state, int id, List<ProductCategory> categories) {
+		this.name = name;
+		this.state = state;
+		this.id = id;
+		this.categories = categories;
+	}
+	
 	public void addEvaluation(Evaluation evaluation) {
 		Reviewer reviewer = evaluation.getReviewer();
 		List<Evaluation> eval = evaluations.get(reviewer);
@@ -45,7 +52,8 @@ public class Reviewer {
 	public boolean canEvaluate(Product product) {
 				
 		for(ProductCategory category : categories) {
-			if (product.containsReviewer(this) || category != product.getCategory()){
+			if (product.getRequester() == this || category != product.getCategory()
+					|| product.getRequester().getState() == this.getState()){
 				return false;
 			}
 		}		

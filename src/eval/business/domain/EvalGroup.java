@@ -6,9 +6,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
-import eval.business.BusinessException;
-import eval.ui.UIUtils;
-
 public class EvalGroup {
 	
 	private String name;
@@ -75,17 +72,13 @@ public class EvalGroup {
 		
 		System.out.println("Iniciando alocação");
 		
-		Reviewer admin = Login(this);
-		
 		while(i < numMembers) {
 			Product currentProduct = getSmallestValue(totalProducts);
 			
 			while(!totalProducts.isEmpty()) {	
 				List<Reviewer> candidates = getOrderedCandidates(currentProduct);
 				for(Reviewer candidate : candidates) {
-					if(!candidate.canEvaluate(currentProduct) || 
-							candidate == admin || 
-							candidate.getState() == admin.getState()) {
+					if(!candidate.canEvaluate(currentProduct)) {
 						candidates.remove(candidate);
 					}
 				}
@@ -182,19 +175,6 @@ public class EvalGroup {
 			return result;
 		}
 		
-	}
-	
-	public Reviewer Login(EvalGroup group) throws Exception{
-		List<Reviewer> members = group.getMembers();
-		String name = UIUtils.INSTANCE.readString("message.ask.admin");
-		
-		for(Reviewer member : members) {
-			if(member.getName() == name) {
-				return member;
-			}
-		}
-		
-		throw new BusinessException("exception.invalid.admin");		
 	}
 	
 	public Product getSmallestValue(List<Product> products) {
