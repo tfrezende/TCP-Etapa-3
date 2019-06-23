@@ -6,6 +6,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
+import eval.ui.UIUtils;
+
 public class EvalGroup {
 	
 	private String name;
@@ -21,7 +23,6 @@ public class EvalGroup {
 		
 	public EvalGroup(String name, List<Reviewer> members,
 			List<Product> products) {
-		super();
 		this.name = name;
 		this.members = members;
 		this.products = products;
@@ -43,8 +44,7 @@ public class EvalGroup {
 		SortByScore sort = new SortByScore();
 		Collections.sort(acceptableProducts, sort.reversed());
 		
-		return acceptableProducts;
-		
+		return acceptableProducts;		
 	}
 	
 	public List<Product> getNotAcceptableProducts(){
@@ -69,7 +69,7 @@ public class EvalGroup {
 		
 		int i = 0;
 		
-		System.out.println("Iniciando alocação");
+		System.out.println(UIUtils.INSTANCE.getTextManager().getText("allocation.start") + "/n");
 		
 		while(i < numMembers) {
 			Product currentProduct = getSmallestValue(totalProducts);
@@ -94,8 +94,8 @@ public class EvalGroup {
 			}
 			i++;
 		}
-		System.out.println("Fim da alocação");
-		System.out.println("Alocações realizadas:");
+		System.out.println(UIUtils.INSTANCE.getTextManager().getText("allocation.end") + "/n");
+		System.out.println(UIUtils.INSTANCE.getTextManager().getText("allocation.num.alloc") + "/n");
 		
 		for(int j = 0; j < allocatedReviewers.size(); j++) {
 			System.out.println(allocatedProducts.get(j).getName() + " --> " +

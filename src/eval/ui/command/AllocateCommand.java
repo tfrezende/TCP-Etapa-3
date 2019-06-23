@@ -18,6 +18,8 @@ public class AllocateCommand extends Command {
 
 	public void execute() throws Exception {
 		
+		System.out.println(UIUtils.INSTANCE.getTextManager().getText("menu.allocation") + "/n");
+		
 		String group = UIUtils.INSTANCE.readString("message.ask.group");
 		evalGroup = database.getGroup(group);
 		

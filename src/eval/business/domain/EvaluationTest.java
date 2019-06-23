@@ -28,6 +28,7 @@ public class EvaluationTest {
 	@Test
 	public void testGetGroup() {
 		assertNotNull(eval.getGroup());
+		assertNotEquals(eval.getGroup(), "");
 		assertEquals(eval.getGroup(), "SPF A");
 		assertEquals(eval.getGroup(), "SPF B");
 		assertEquals(eval.getGroup(), "SPF C");
@@ -50,6 +51,7 @@ public class EvaluationTest {
 	@Test
 	public void testGetProduct() {
 		assertNotNull(eval.getProduct());
+		assertFalse(eval.getProduct().getName() == "");
 		assertTrue(eval.getProduct().getName() == "L’oreal DD Cream");
 		assertTrue(eval.getProduct().getName() == "Avon CC Cream");
 		assertTrue(eval.getProduct().getName() == "Revolution Powder Sunscreeen");

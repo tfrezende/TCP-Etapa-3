@@ -27,6 +27,8 @@ public class IncludeCommand extends Command {
 		
 		products = (List<Product>) database.getAllProducts();
 		
+		System.out.println(UIUtils.INSTANCE.getTextManager().getText("menu.assign.notes") + "/n");
+		
 		System.out.println("--- Produtos registrados ---");
 		for(Product regProd : products) {
 			System.out.println(regProd.getId() + "\t" + regProd.getName());

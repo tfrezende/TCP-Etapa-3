@@ -22,6 +22,8 @@ public class SelectFileCommand extends Command {
 		List<Product> acceptableProducts;
 		List<Product> notAcceptableProducts;
 		
+		System.out.println(UIUtils.INSTANCE.getTextManager().getText("menu.products.selection") + "/n");
+		
 		System.out.println("--- Grupos registrados ---");		
 		for(EvalGroup group : groups) {
 			System.out.println(group.getName());
@@ -44,10 +46,10 @@ public class SelectFileCommand extends Command {
 			acceptableProducts = evalGroup.getAcceptableProducts();
 			notAcceptableProducts = evalGroup.getNotAcceptableProducts();
 			
-			System.out.println("selection.acceptable.quality");			
+			System.out.println(UIUtils.INSTANCE.getTextManager().getText("selection.acceptable.quality"));			
 			printProducts(acceptableProducts);
 			
-			System.out.println("selection.unacceptable.quality");
+			System.out.println(UIUtils.INSTANCE.getTextManager().getText("selection.unacceptable.quality"));
 			printProducts(notAcceptableProducts);
 		}
 		
