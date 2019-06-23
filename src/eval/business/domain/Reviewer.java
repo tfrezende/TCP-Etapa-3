@@ -32,6 +32,10 @@ public class Reviewer {
 	public void setEvaluations(Map<Reviewer, List<Evaluation>> evaluations) {
 		this.evaluations = evaluations;
 	}
+	
+	public List<Evaluation> getEvaluationsFromReviewer(Reviewer reviewer) {
+		return this.evaluations.get(reviewer);
+	}
 
 	public List<ProductCategory> getCategories() {
 		return categories;

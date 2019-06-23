@@ -104,7 +104,7 @@ public class EvalGroup {
 	}
 	
 	public boolean isAllocated() {
-		if(getEvaluations().isEmpty()) {
+		if(this.allocatedProducts.isEmpty()) {
 			return false;
 		}		
 		return true;
@@ -191,4 +191,14 @@ public class EvalGroup {
 		}
 		return product;
 	}
+
+	public void setAllocatedReviewers(List<Reviewer> allocatedReviewers) {
+		this.allocatedReviewers = allocatedReviewers;
+	}
+
+	public void setAllocatedProducts(List<Product> allocatedProducts) {
+		this.allocatedProducts = allocatedProducts;
+	}
+	
+	
 }

@@ -14,6 +14,11 @@ public class Evaluation {
 		this.setReviewer(reviewer);
 	}
 	
+	public Evaluation(Product product, Reviewer reviewer){
+		this.setProduct(product);
+		this.setReviewer(reviewer);
+	}
+	
 	public void setScore(int score) {
 		this.score = score;
 		this.done =true;
