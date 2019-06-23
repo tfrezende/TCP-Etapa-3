@@ -27,7 +27,7 @@ public class CatalogueInterface {
 	protected Log log;
 	//Properties prop = new Properties();
 	
-	protected CatalogueInterface() { //throws FileNotFoundException
+	public CatalogueInterface() { //throws FileNotFoundException
 		Database database = new Database();
 		this.actions = new LinkedHashMap<>();
 		actions.put(1, new AllocateCommand(this, database));
