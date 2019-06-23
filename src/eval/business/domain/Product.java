@@ -10,16 +10,25 @@ public class Product {
 	private String name;
 	private int id;
 	private EvalGroup group;
+	private Reviewer requester;
 	private ProductCategory category;
 	private Map<Reviewer, Evaluation> evaluations;
 
-	public Product(String name, int id, EvalGroup group, ProductCategory category) {
+	public Product(String name, int id, ProductCategory category, Reviewer requester) {
 		this.name = name;
 		this.id = id;
-		this.group = group;
 		this.category = category;
+		this.requester = requester;
 	}
 	
+	public Reviewer getRequester() {
+		return requester;
+	}
+
+	public void setRequester(Reviewer requester) {
+		this.requester = requester;
+	}
+
 	public boolean containsReviewer(Reviewer reviewer){
 		if(evaluations.containsKey(reviewer)) {
 			return true;

@@ -6,7 +6,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
-import eval.business.BusinessException;
 import eval.ui.UIUtils;
 
 public class EvalGroup {
@@ -22,10 +21,9 @@ public class EvalGroup {
 	private List<Reviewer> allocatedReviewers;
 	private List<Product> allocatedProducts;
 		
-	public EvalGroup(String name, Map<Product, List<Evaluation>> evaluations, List<Reviewer> members,
+	public EvalGroup(String name, List<Reviewer> members,
 			List<Product> products) {
 		this.name = name;
-		this.evaluations = evaluations;
 		this.members = members;
 		this.products = products;
 	}
@@ -73,17 +71,13 @@ public class EvalGroup {
 		
 		System.out.println(UIUtils.INSTANCE.getTextManager().getText("allocation.start") + "/n");
 		
-		Reviewer admin = Login(this);
-		
 		while(i < numMembers) {
 			Product currentProduct = getSmallestValue(totalProducts);
 			
 			while(!totalProducts.isEmpty()) {	
 				List<Reviewer> candidates = getOrderedCandidates(currentProduct);
 				for(Reviewer candidate : candidates) {
-					if(!candidate.canEvaluate(currentProduct) || 
-							candidate == admin || 
-							candidate.getState() == admin.getState()) {
+					if(!candidate.canEvaluate(currentProduct)) {
 						candidates.remove(candidate);
 					}
 				}
@@ -180,19 +174,6 @@ public class EvalGroup {
 			return result;
 		}
 		
-	}
-	
-	public Reviewer Login(EvalGroup group) throws Exception{
-		List<Reviewer> members = group.getMembers();
-		String name = UIUtils.INSTANCE.readString("message.ask.admin");
-		
-		for(Reviewer member : members) {
-			if(member.getName() == name) {
-				return member;
-			}
-		}
-		
-		throw new BusinessException("exception.invalid.admin");		
 	}
 	
 	public Product getSmallestValue(List<Product> products) {
