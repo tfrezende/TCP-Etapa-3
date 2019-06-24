@@ -9,7 +9,7 @@ public class ReviewerTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		rev = new Reviewer();
+		rev = new Reviewer(null, null, 0, null);
 	}
 	
 	@Before
