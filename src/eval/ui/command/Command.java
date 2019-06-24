@@ -18,7 +18,7 @@ public abstract class Command implements UIAction {
 
 	public Command(CatalogueInterface catalogueInterface, Database database,
 			boolean isEnabled) {
-		this.catalogueInterface = catalogueInterface;
+		this.setCatalogueInterface(catalogueInterface);
 		this.isEnabled = isEnabled;
 		this.database = database;
 	}
@@ -33,6 +33,14 @@ public abstract class Command implements UIAction {
 
 	public void setEnabled(boolean isEnabled) {
 		this.isEnabled = isEnabled;
+	}
+
+	public CatalogueInterface getCatalogueInterface() {
+		return catalogueInterface;
+	}
+
+	public void setCatalogueInterface(CatalogueInterface catalogueInterface) {
+		this.catalogueInterface = catalogueInterface;
 	}
 		
 }
