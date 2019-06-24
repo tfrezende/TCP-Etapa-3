@@ -27,7 +27,7 @@ public class Evaluation {
 	
 	public void setScore(int score) {
 		this.score = score;
-		this.done =true;
+		this.done = true;
 	}
 	
 	public int getScore() {

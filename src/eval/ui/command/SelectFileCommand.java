@@ -1,5 +1,7 @@
 package eval.ui.command;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import eval.business.BusinessException;
@@ -10,7 +12,7 @@ import eval.ui.CatalogueInterface;
 import eval.ui.UIUtils;
 
 public class SelectFileCommand extends Command {
-	private List<EvalGroup> groups;
+	private List<EvalGroup> groups = new ArrayList<>();;
 
 	public SelectFileCommand(CatalogueInterface catalogueInterface, Database database) {
 		super(catalogueInterface, database);
@@ -18,7 +20,10 @@ public class SelectFileCommand extends Command {
 
 	@Override
 	public void execute() throws Exception {
-		groups = (List<EvalGroup>) database.getAllGroups();
+		Collection<EvalGroup> grp = new ArrayList<>();
+		grp = database.getAllGroups();		
+		groups.addAll(grp);
+		
 		List<Product> acceptableProducts;
 		List<Product> notAcceptableProducts;
 		
@@ -30,15 +35,13 @@ public class SelectFileCommand extends Command {
 		}
 		
 		String groupName = UIUtils.INSTANCE.readString("message.ask.group");
+		database.getGroup(groupName);
 		
-		EvalGroup evalGroup = null;
-		
-		for(EvalGroup group : groups) {
-			if(group.getName() == groupName) {
-				evalGroup = group;
-			}				
+		EvalGroup evalGroup = database.getGroup(groupName);
+		if(evalGroup == null) {
+			throw new BusinessException("exception.group.not.found");
 		}
-		
+				
 		if (!isGroupValid(evalGroup)) {
 			throw new BusinessException("exception.invalid.group");
 		}
@@ -60,9 +63,9 @@ public class SelectFileCommand extends Command {
 	}
 	
 	public void printProducts(List<Product> list) {
-		System.out.println("ID\tNOME\tNOTA MÉDIA");	
+		System.out.println("ID\tNOME\t\t\tNOTA MÉDIA");	
 		for(Product element : list) {
-			System.out.println(element.getId() + "/t" + element.getName() + "/t" +
+			System.out.println(element.getId() + "\t" + element.getName() + "\t" +
 			element.getAverageScore());
 		}
 	}

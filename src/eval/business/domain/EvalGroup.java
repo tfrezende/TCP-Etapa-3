@@ -1,5 +1,6 @@
 package eval.business.domain;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -12,15 +13,18 @@ public class EvalGroup {
 	
 	private String name;
 	private Map<Product, List<Evaluation>> evaluations;
-	private List<Reviewer> members;
-	private List<Product> products;
-	private List<Product> acceptableProducts;
-	private List<Product> notAcceptableProducts;
-	private Collection<Integer> productIds;
+	private List<Reviewer> members = new ArrayList<>();
+	private List<Product> products = new ArrayList<>();
+	private List<Product> acceptableProducts = new ArrayList<>();
+	private List<Product> notAcceptableProducts = new ArrayList<>();
 	private final double MIN_VALUE = 0.0;
-	private List<Reviewer> allocatedReviewers;
-	private List<Product> allocatedProducts;
-		
+	private List<Reviewer> allocatedReviewers = new ArrayList<>();
+	private List<Product> allocatedProducts = new ArrayList<>();
+	
+	public List<Product> getAllocatedProducts(){
+		return this.allocatedProducts;
+	}
+	
 	public EvalGroup(String name, List<Reviewer> members,
 			List<Product> products) {
 		this.name = name;
@@ -30,6 +34,7 @@ public class EvalGroup {
 
 	private List<Reviewer> getOrderedCandidates(Product product){
 		List<Reviewer> orderedCandidates = this.members;
+		
 		Collections.sort(orderedCandidates, new SortByNumProds());
 		
 		return orderedCandidates;
@@ -62,44 +67,54 @@ public class EvalGroup {
 		return notAcceptableProducts;
 	}	
 	
-	private void addEvaluation(Product product, Reviewer reviewer) {
+	private  void addEvaluation(Product product, Reviewer reviewer) {
 		Evaluation eval = new Evaluation(this, product, reviewer);
 		product.addEvaluation(eval);
 		reviewer.addEvaluation(eval);
+		List<Evaluation> evals = this.evaluations.get(product);
+		evals.add(eval);
+		this.evaluations.put(product, evals);
 	}
 	
 	public void allocate(int numMembers) throws Exception {		
 		List<Product> totalProducts = getProducts();
 		
 		int i = 0;
+		int k = 0;
 		
-		System.out.println(UIUtils.INSTANCE.getTextManager().getText("allocation.start") + "/n");
+		System.out.println(UIUtils.INSTANCE.getTextManager().getText("allocation.start") + "\n");
 		
 		while(i < numMembers) {
 			Product currentProduct = getSmallestValue(totalProducts);
 			
-			while(!totalProducts.isEmpty()) {	
-				List<Reviewer> candidates = getOrderedCandidates(currentProduct);
-				for(Reviewer candidate : candidates) {
-					if(!candidate.canEvaluate(currentProduct)) {
-						candidates.remove(candidate);
-					}
-				}
-				if(!candidates.isEmpty()) {
-					addEvaluation(currentProduct, candidates.get(0));
-					System.out.println("Produto id " + currentProduct.getId() +
-							" alocado ao avaliador id " + candidates.get(0).getId());
+			if(currentProduct != null) {
+			
+				while(!totalProducts.isEmpty()) {	
+					List<Reviewer> candidates = new ArrayList<>();
+					candidates = getOrderedCandidates(currentProduct);
 					
-					allocatedReviewers.add(candidates.get(0));
-					allocatedProducts.add(totalProducts.get(0));
-					candidates.remove(0);
+					for(k = 0; k < candidates.size(); k++) {
+						Reviewer candidate = candidates.get(k);
+						if(!candidate.canEvaluate(currentProduct)) {
+							candidates.remove(k);
+						}
+					}
+					if(!candidates.isEmpty()) {
+						addEvaluation(currentProduct, candidates.get(0));
+						System.out.println("Produto id " + currentProduct.getId() +
+								" alocado ao avaliador id " + candidates.get(0).getId());
+						
+						allocatedReviewers.add(candidates.get(0));
+						allocatedProducts.add(totalProducts.get(0));
+						candidates.remove(0);
+					}
+					totalProducts.remove(0);
 				}
-				totalProducts.remove(0);
 			}
 			i++;
 		}
-		System.out.println(UIUtils.INSTANCE.getTextManager().getText("allocation.end") + "/n");
-		System.out.println(UIUtils.INSTANCE.getTextManager().getText("allocation.num.alloc") + "/n");
+		System.out.println(UIUtils.INSTANCE.getTextManager().getText("allocation.end") + "\n");
+		System.out.println(UIUtils.INSTANCE.getTextManager().getText("allocation.num.alloc") + "\n");
 		
 		for(int j = 0; j < allocatedReviewers.size(); j++) {
 			System.out.println(allocatedProducts.get(j).getName() + " --> " +
@@ -116,10 +131,15 @@ public class EvalGroup {
 	
 	public boolean isEvaluationDone() {
 		boolean isDone = true;
-		
+			
 		for(Product prod: products) {
-			if (prod.isEvaluationDone() == false)
-				isDone = false;
+			List<Evaluation> evals = evaluations.get(prod);
+				
+			for(Evaluation eval : evals) {
+				if (eval.isDone() == false) {
+					return false;
+				}
+			}				
 		}
 		
 		return isDone;
@@ -181,13 +201,18 @@ public class EvalGroup {
 	}
 	
 	public Product getSmallestValue(List<Product> products) {
-		productIds = null;
-		Product product = null;
-		
+		List<Integer> productIds = new ArrayList<>();
+		Collection<Integer> ids = new ArrayList<>();
+		Product product = new Product(name, 0, null, null, null);
+		if (products.isEmpty()) {
+			return null;
+		}
 		for(Product prod : products) {
 			productIds.add(prod.getId());
 		}
-		Integer id = Collections.min(productIds);
+		ids.addAll(productIds);
+		Integer id = Collections.min(ids);
+				
 		
 		for(Product prod : products) {
 			if(prod.getId() == id)

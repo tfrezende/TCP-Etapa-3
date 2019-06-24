@@ -25,9 +25,9 @@ public class Reviewer {
 	
 	public void addEvaluation(Evaluation evaluation) {
 		EvalGroup group = evaluation.getGroup();
-		List<Evaluation> eval = new ArrayList<>();
+		List<Evaluation> eval = evaluations.get(evaluation.getGroup());
 				
-		eval = evaluation.getGroup().getEvaluationsByProduct(evaluation.getProduct());
+		//eval = evaluations.get(evaluation.getGroup());
 		
 		eval.add(evaluation);
 		
@@ -56,14 +56,15 @@ public class Reviewer {
 	}
 
 	public boolean canEvaluate(Product product) {
-				
+		
 		for(ProductCategory category : categories) {
+			System.out.println(category.getName());
 			if (product.getRequester() == this || category != product.getCategory()
 					|| product.getRequester().getState() == this.getState()){
 				return false;
 			}
 		}		
-		return false;
+		return true;
 	}
 	
 

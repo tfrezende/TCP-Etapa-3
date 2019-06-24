@@ -18,7 +18,8 @@ import eval.business.domain.Reviewer;
 public class Database {
 	
 	private Map<String, EvalGroup> groups;
-	private Map<Integer, Product> products;
+	private List<EvalGroup> grps;
+	private List<Product> products;
 	private final Log log;
 	
 	public Database() {
@@ -28,7 +29,8 @@ public class Database {
 	public Database(boolean initData) {
 		this.log = LogFactory.getLog(getClass());
 		this.groups = new HashMap<>();
-		this.products = new HashMap<>();
+		this.products = new ArrayList<>();
+		this.grps = new ArrayList<>();
 		if(initData) {
 			initData();
 		}
@@ -46,8 +48,8 @@ public class Database {
 		return this.groups.values();
 	}
 	
-	public Collection<Product> getAllProducts() {
-		return this.products.values();
+	public List<Product> getAllProducts() {
+		return this.products;
 	}
 	
 	public void initData() {
@@ -136,9 +138,7 @@ public class Database {
 			reviewers.add(new Reviewer("Carla", "SP", 10, cat10));
 							
 			// Products
-			List<Product> prods = new ArrayList<>();
-			
-			prods = initProducts(categories, reviewers);		
+			List<Product> prods = new ArrayList<>();				
 			
 			// Groups
 			List<EvalGroup> evalGroups = new ArrayList<>();
@@ -173,6 +173,10 @@ public class Database {
 			members3.add(reviewers.get(9));
 			evalGroups.add(new EvalGroup("SPF C", members3, prods));
 			
+			initReviewers(reviewers, evalGroups);
+			
+			prods = initProducts(categories, reviewers, evalGroups);
+			
 			
 			// Allocation
 			List<Product> allocatedProducts1 = new ArrayList<>();
@@ -187,17 +191,18 @@ public class Database {
 			evalGroups.get(2).setAllocatedProducts(allocatedProducts2);
 			
 			// Evaluations
-			//initEvaluations(prods, reviewers);
+			initEvaluations(prods, reviewers, evalGroups);
 			
 			
 			// Maps
 			for (Product prod : prods) {
-				this.products.put(prod.getId(), prod);
+				products.add(prod);
 			}		
 			for(EvalGroup group : evalGroups) {
+				grps.add(group);
 				groups.put(group.getName(), group);
 			}
-		
+					
 		} catch (Exception e) {
 			log.error(e);
 			e.printStackTrace();
@@ -207,69 +212,157 @@ public class Database {
 	}
 	
 	private List<Product> initProducts(List<ProductCategory> categories, 
-			List<Reviewer> reviewers){
+			List<Reviewer> reviewers, List<EvalGroup> groups){
 		List<Product> prods = new ArrayList<>();
 		
 		prods.add(new Product("L’oreal DD Cream", 1, categories.get(2), 
-				reviewers.get(0)));
+				groups.get(2), reviewers.get(0)));
 		prods.add(new Product("Avon CC Cream", 2, categories.get(1), 
-				reviewers.get(5)));
+				groups.get(1), reviewers.get(5)));
 		prods.add(new Product("Revolution Powder Sunscreeen", 3, categories.get(3), 
-				reviewers.get(6)));
+				groups.get(1), reviewers.get(6)));
 		prods.add(new Product("Maybelline BB Cream ", 4, categories.get(0),
-				reviewers.get(7)));
+				groups.get(1), reviewers.get(7)));
 		prods.add(new Product("Revlon Foundation+SPF20", 5, categories.get(4),
-				reviewers.get(8)));
+				groups.get(1), reviewers.get(8)));
 		prods.add(new Product("Nivea Matte Face SPF", 6, categories.get(5),
-				reviewers.get(9)));
+				groups.get(1), reviewers.get(9)));
 		prods.add(new Product("La Roche CC Cream", 7, categories.get(1),
-				reviewers.get(5)));
+				groups.get(0), reviewers.get(5)));
 		prods.add(new Product("Yves Rocher Powder+SPF15", 8, categories.get(3),
-				reviewers.get(6)));
+				groups.get(0), reviewers.get(6)));
 		prods.add(new Product("Nivea BB Cream", 9, categories.get(0),
-				reviewers.get(7)));
+				groups.get(0), reviewers.get(7)));
 		prods.add(new Product("Base O Boticário SPF20", 10, categories.get(4),
-				reviewers.get(8)));
+				groups.get(0), reviewers.get(8)));
 		prods.add(new Product("Natura SPF20 Rosto Matte", 11, categories.get(5),
-				reviewers.get(9)));
-		
+				groups.get(0), reviewers.get(9)));
+			
 		return prods;
 	}
 	
-	private void initEvaluations(List<Product> prods, List<Reviewer> reviewers) {
-		Map<Reviewer, Evaluation> evaluations = new HashMap<Reviewer, Evaluation>();
+	private void initEvaluations(List<Product> prods, List<Reviewer> reviewers,
+			List<EvalGroup> group) {		
 		
-		Evaluation eval = new Evaluation(prods.get(0), reviewers.get(7));
-		//prods.get(0).addEvaluation(new Evaluation(prods.get(0), reviewers.get(7)));
-		reviewers.get(7).addEvaluation(eval);
+		Evaluation eval = new Evaluation(prods.get(0).getGroup(), prods.get(0), 
+				reviewers.get(7));		
 		prods.get(0).addEvaluation(eval);
-		prods.get(0).addScore(reviewers.get(7), 2);		
-		prods.get(0).addEvaluation(new Evaluation(prods.get(0), reviewers.get(9)));
+		reviewers.get(7).addEvaluation(eval);
 		
-		prods.get(1).addEvaluation(new Evaluation(prods.get(1), reviewers.get(6)));
+		eval = new Evaluation(prods.get(0).getGroup(), prods.get(0), 
+				reviewers.get(7));
+		prods.get(0).addEvaluation(eval);
+		
+		eval = new Evaluation(prods.get(1).getGroup(), prods.get(1), reviewers.get(6));
+		prods.get(1).addEvaluation(eval);
+		reviewers.get(6).addEvaluation(eval);
 		prods.get(1).addScore(reviewers.get(6), 2);		
-		prods.get(1).addEvaluation(new Evaluation(prods.get(1), reviewers.get(1)));
+		
+		eval = new Evaluation(prods.get(1).getGroup(), prods.get(1), reviewers.get(1));
+		prods.get(1).addEvaluation(eval);
+		reviewers.get(1).addEvaluation(eval);
 		prods.get(1).addScore(reviewers.get(1), 3);
 		
-		prods.get(2).addEvaluation(new Evaluation(prods.get(2), reviewers.get(3)));
-		prods.get(2).addScore(reviewers.get(3), -1);		
-		prods.get(2).addEvaluation(new Evaluation(prods.get(2), reviewers.get(5)));
+		eval = new Evaluation(prods.get(2).getGroup(),prods.get(2), reviewers.get(3));
+		prods.get(2).addEvaluation(eval);
+		reviewers.get(3).addEvaluation(eval);
+		prods.get(2).addScore(reviewers.get(3), -1);	
+		
+		eval = new Evaluation(prods.get(2).getGroup(), prods.get(2), reviewers.get(5));
+		prods.get(2).addEvaluation(eval);
+		reviewers.get(5).addEvaluation(eval);
 		prods.get(2).addScore(reviewers.get(5), 1);
 		
-		prods.get(3).addEvaluation(new Evaluation(prods.get(3), reviewers.get(0)));
+		eval = new Evaluation(prods.get(3).getGroup(), prods.get(3), reviewers.get(0));
+		prods.get(3).addEvaluation(eval);
+		reviewers.get(5).addEvaluation(eval);
 		prods.get(3).addScore(reviewers.get(0), 1);		
-		prods.get(3).addEvaluation(new Evaluation(prods.get(3), reviewers.get(2)));
+		
+		eval = new Evaluation(prods.get(3).getGroup(), prods.get(3), reviewers.get(2));
+		prods.get(3).addEvaluation(eval);
+		reviewers.get(2).addEvaluation(eval);
 		prods.get(3).addScore(reviewers.get(2), 0);
 		
-		prods.get(4).addEvaluation(new Evaluation(prods.get(2), reviewers.get(3)));
-		prods.get(4).addScore(reviewers.get(3), -3);		
-		prods.get(4).addEvaluation(new Evaluation(prods.get(2), reviewers.get(4)));
+		eval = new Evaluation(prods.get(4).getGroup(), prods.get(4), reviewers.get(3));
+		prods.get(4).addEvaluation(eval);
+		reviewers.get(3).addEvaluation(eval);
+		prods.get(4).addScore(reviewers.get(3), -3);
+		
+		eval = new Evaluation(prods.get(4).getGroup(), prods.get(4), reviewers.get(4));
+		prods.get(4).addEvaluation(eval);
+		reviewers.get(4).addEvaluation(eval);
 		prods.get(4).addScore(reviewers.get(4), -3);
 		
-		prods.get(5).addEvaluation(new Evaluation(prods.get(2), reviewers.get(2)));
-		prods.get(5).addScore(reviewers.get(2), -1);		
-		prods.get(5).addEvaluation(new Evaluation(prods.get(2), reviewers.get(5)));
+		eval = new Evaluation(prods.get(5).getGroup(), prods.get(5), reviewers.get(2));
+		prods.get(5).addEvaluation(eval);
+		reviewers.get(2).addEvaluation(eval);
+		prods.get(5).addScore(reviewers.get(2), -1);	
+		
+		eval = new Evaluation(prods.get(5).getGroup(), prods.get(5), reviewers.get(5));
+		prods.get(5).addEvaluation(eval);
+		reviewers.get(5).addEvaluation(eval);
 		prods.get(5).addScore(reviewers.get(5), 0);
+		
+		for(EvalGroup gp : group) {
+			Map<Product, List<Evaluation>> evaluations = 
+					new HashMap<Product, List<Evaluation>>();
+			Collection<Evaluation> evals = new ArrayList<>();
+			List<Evaluation> e = new ArrayList<>();
+			List<Product> p = new ArrayList<>();
+			
+			for(Product product : prods) {
+				if(product.getGroup() == gp) {
+					evals = product.getEvaluations();
+					e.addAll(evals);
+					evaluations.put(product, e);
+					p.add(product);
+				}				
+			}
+			
+			gp.setEvaluations(evaluations);
+			gp.setProducts(p);
+		}
+	}
+	
+	private void initReviewers(List<Reviewer> reviewers, List<EvalGroup> groups) {
+		List<EvalGroup> group123 = new ArrayList<>();
+		List<EvalGroup> group4567= new ArrayList<>();
+		List<EvalGroup> group8910 = new ArrayList<>();
+
+		
+		group123.add(groups.get(0));
+		group123.add(groups.get(1));
+		
+		group4567.add(groups.get(0));
+		group4567.add(groups.get(1));
+		group4567.add(groups.get(2));
+		
+		group8910.add(groups.get(2));
+		
+		
+		reviewers.get(0).setGroups(group123);
+		reviewers.get(1).setGroups(group123);
+		reviewers.get(2).setGroups(group123);
+		reviewers.get(3).setGroups(group123);
+		
+		reviewers.get(4).setGroups(group4567);
+		reviewers.get(5).setGroups(group4567);
+		reviewers.get(6).setGroups(group4567);
+		
+		reviewers.get(7).setGroups(group8910);
+		reviewers.get(8).setGroups(group8910);
+		reviewers.get(9).setGroups(group8910);
+		
+		for(Reviewer rev : reviewers) {
+			Map<EvalGroup, List<Evaluation>> evaluations = new HashMap<>();
+			for(EvalGroup gp : rev.getGroups()) {
+				evaluations.put(gp, new ArrayList<Evaluation>());
+			}
+			rev.setEvaluations(evaluations);
+		}
+		
+		
+		
 	}
 	
 }

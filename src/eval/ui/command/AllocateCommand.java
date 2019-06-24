@@ -21,7 +21,7 @@ public class AllocateCommand extends Command {
 		System.out.println("\n" + UIUtils.INSTANCE.getTextManager().getText("menu.allocation"));
 		
 		String group = UIUtils.INSTANCE.readString("message.ask.group");
-		System.out.println(group);
+		
 		evalGroup = database.getGroup(group);
 		
 		testAllocation(evalGroup);
@@ -34,7 +34,7 @@ public class AllocateCommand extends Command {
 	}
 	
 	public void testAllocation(EvalGroup group) throws Exception {
-		if (!evalGroup.isAllocated()) {
+		if (evalGroup.isAllocated()) {
 			throw new BusinessException("exception.allocated.group");
 		}
 	}

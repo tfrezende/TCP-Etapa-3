@@ -63,7 +63,7 @@ public class CatalogueInterface {
 				} catch (BusinessException be) {
 					System.out.println(uiUtils.getTextManager().getText(
 							be.getMessage(), be.getArgs()));
-					log.warn(be);
+					
 				} catch (Exception e) {
 					uiUtils.handleUnexceptedError(e);
 				}

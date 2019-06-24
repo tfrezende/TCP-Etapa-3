@@ -1,5 +1,6 @@
 package eval.ui.command;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import eval.business.BusinessException;
@@ -12,7 +13,7 @@ import eval.ui.UIUtils;
 
 public class IncludeCommand extends Command {
 	
-	private List<Product> products;
+	private List<Product> products = new ArrayList<>();
 	private List<Reviewer> reviewers;
 	
 
@@ -25,7 +26,7 @@ public class IncludeCommand extends Command {
 		final Integer MIN_VALUE = -3;
 		final Integer MAX_VALUE = 3;
 		
-		products = (List<Product>) database.getAllProducts();
+		products = database.getAllProducts();
 		
 		System.out.println("\n" + UIUtils.INSTANCE.getTextManager().getText("menu.assign.notes"));
 		
@@ -60,13 +61,14 @@ public class IncludeCommand extends Command {
 		else{
 			Integer score = UIUtils.INSTANCE.readInteger("message.ask.score");
 			
-			if(score <= MIN_VALUE && score >= MAX_VALUE) {
+			if(score <= MIN_VALUE || score >= MAX_VALUE) {
 				throw new BusinessException("exception.invalid.score");
 			}
 			else {
 				Evaluation evaluation = new Evaluation(product.getGroup(), product, reviewer);
 				product.addEvaluation(evaluation);
 				product.addScore(reviewer, score);
+				System.out.println("Nota registrada");
 			}
 			
 		}

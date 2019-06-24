@@ -22,6 +22,14 @@ public class Product {
 		this.requester = requester;
 		evaluations.put(requester, null);
 	}
+	public Product(String name, int id, ProductCategory category, EvalGroup group,
+			Reviewer requester) {
+		this.name = name;
+		this.id = id;
+		this.category = category;
+		this.group = group;
+		this.requester = requester;;
+	}
 	
 	public Reviewer getRequester() {
 		return requester;
