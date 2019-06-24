@@ -8,7 +8,7 @@ public class ProductCategoryTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		prodCat = new ProductCategory();
+		prodCat = new ProductCategory(null);
 	}
 	
 	@Test

@@ -2,6 +2,7 @@ package eval.business.domain;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,13 +13,14 @@ public class Product {
 	private EvalGroup group;
 	private Reviewer requester;
 	private ProductCategory category;
-	private Map<Reviewer, Evaluation> evaluations;
+	private Map<Reviewer, Evaluation> evaluations = new HashMap<Reviewer, Evaluation>();
 
 	public Product(String name, int id, ProductCategory category, Reviewer requester) {
 		this.name = name;
 		this.id = id;
 		this.category = category;
 		this.requester = requester;
+		evaluations.put(requester, null);
 	}
 	
 	public Reviewer getRequester() {

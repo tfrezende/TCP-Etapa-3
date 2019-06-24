@@ -38,7 +38,7 @@ public class ReviewerTest {
 	public void testGetName() {
 		assertNotNull(rev.getName());
 		assertFalse(rev.getName() == "");
-		assertEquals(rev.getName(), "João");
+		assertEquals(rev.getName(), "Joï¿½o");
 		assertEquals(rev.getName(), "Ana");
 		assertEquals(rev.getName(), "Manoela");
 		assertEquals(rev.getName(), "Joana");

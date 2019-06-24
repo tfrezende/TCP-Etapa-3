@@ -22,7 +22,7 @@ public class SelectFileCommand extends Command {
 		List<Product> acceptableProducts;
 		List<Product> notAcceptableProducts;
 		
-		System.out.println(UIUtils.INSTANCE.getTextManager().getText("menu.products.selection") + "/n");
+		System.out.println("\n" + UIUtils.INSTANCE.getTextManager().getText("menu.products.selection"));
 		
 		System.out.println("--- Grupos registrados ---");		
 		for(EvalGroup group : groups) {

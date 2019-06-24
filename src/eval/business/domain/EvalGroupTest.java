@@ -8,7 +8,7 @@ public class EvalGroupTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		evalGp = new EvalGroup(null, null, null, null);
+		evalGp = new EvalGroup(null, null, null);
 	}
 	
 	@Test
